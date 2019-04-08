@@ -1,5 +1,6 @@
 import React from 'react';
 import './news.component.scss';
+import PropTypes from 'prop-types';
 
 export default class NewsComponent extends React.Component {
     constructor(props) {
@@ -32,13 +33,19 @@ export default class NewsComponent extends React.Component {
     }
 }
 
+NewsComponent.propTypes = {
+    news: PropTypes.shape({
+        articles: PropTypes.array.isRequired
+    }).isRequired
+}
+
 const renderRow = (item, index) => {
     return (
         <tr key={index}>
             <td>{item.author}</td>
             <td>{item.source.name}</td>
             <td>{item.content}</td>
-            <td><a className="thumb" href={item.urlToImage}><img src={item.urlToImage} /></a></td>
+            <td><a className="thumb" href={item.urlToImage}><img alt="thumb" src={item.urlToImage} /></a></td>
         </tr>
     )
 }

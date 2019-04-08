@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import { getNews } from './../actions/news.actions';
 import NewsComponent from '../components/news.component';
+import PropTypes from 'prop-types';
 
 class HomeContainer extends React.Component {
     constructor(props) {
@@ -41,6 +42,16 @@ class HomeContainer extends React.Component {
             </div>
         );
     }
+}
+
+HomeContainer.propTypes = {
+    defaultLanguage: PropTypes.string.isRequired,
+    news: PropTypes.shape({
+        loaded: PropTypes.bool.isRequired,
+        data: PropTypes.shape({
+            articles: PropTypes.array
+        })
+    })
 }
 
 const mapStateToProps = (state, props) => ({

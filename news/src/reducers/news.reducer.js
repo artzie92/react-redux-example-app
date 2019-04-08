@@ -1,7 +1,8 @@
 import { NewsTypes } from './../actions/news.actions';
 
 const defaultState = {
-    loaded: false
+    loaded: false,
+    data: {}
 };
 
 export default (state = defaultState, action) => {
