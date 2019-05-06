@@ -10,3 +10,14 @@ export default {
         return axios.get(url)
     }
 }
+
+export const LANGUAGES = [
+    {
+        id: 'pl',
+        name: 'polish'
+    },
+    {
+        id: 'us',
+        name: 'english'
+    }
+];

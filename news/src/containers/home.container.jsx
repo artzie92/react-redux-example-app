@@ -1,17 +1,24 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { getNews } from './../actions/news.actions';
+import { getNews, setLanguage } from './../actions/news.actions';
 import NewsComponent from '../components/news.component';
+import SummaryContainer from './summary.container';
 import PropTypes from 'prop-types';
 
 class HomeContainer extends React.Component {
     constructor(props) {
         super(props);
+        this.getNews = this.getNews.bind(this);
     }
 
     componentDidMount() {
+        this.getNews();
+        this.props.setLanguage({ language: this.props.defaultLanguage })
+    }
+
+    getNews() {
         this.props.getNews({
-            language: this.props.defaultLanguage
+            language: this.props.news.selectedLanguage ? this.props.news.selectedLanguage : this.props.defaultLanguage
         });
     }
 
@@ -30,14 +37,18 @@ class HomeContainer extends React.Component {
 
         return (
             <div id="home-container" className="container">
-                <div className="text-center">
-                    <h1>Welcome in newsletter!</h1>
-                </div>
-
-                <div>
-                    {
-                        newsState.loaded === true ? <NewsComponent news={news} /> : <span>Loading...</span>
-                    }
+                <div className="row">
+                    <div className="text-center col-md-12">
+                        <h1>Welcome in newsletter!    <button onClick={this.getNews} className="btn btn-danger">Update news</button></h1>
+                    </div>
+                    <div className="col-md-12">
+                        <SummaryContainer />
+                    </div>
+                    <div className="col-md-12">
+                        {
+                            newsState.loaded === true ? <NewsComponent news={news} /> : <span>Loading...</span>
+                        }
+                    </div>
                 </div>
             </div>
         );
@@ -62,6 +73,9 @@ const mapStateToProps = (state, props) => ({
 const mapDisptachToProps = (dispatch, props) => ({
     getNews: ({ language }) => {
         return dispatch(getNews({ language }));
+    },
+    setLanguage: ({ language }) => {
+        return dispatch(setLanguage({ language }));
     }
 });
 

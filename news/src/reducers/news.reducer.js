@@ -2,7 +2,8 @@ import { NewsTypes } from './../actions/news.actions';
 
 const defaultState = {
     loaded: false,
-    data: {}
+    data: {},
+    selectedLanguage: null
 };
 
 export default (state = defaultState, action) => {
@@ -14,6 +15,11 @@ export default (state = defaultState, action) => {
                 ...state,
                 loaded: true,
                 data: action.data
+            }
+        case NewsTypes.SET_LANGUAGE:
+            return {
+                ...state,
+                selectedLanguage: action.language
             }
     }
 
